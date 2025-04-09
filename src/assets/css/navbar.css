@@ -1,0 +1,79 @@
+/* Logo */
+.navbar-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  
+  /* Brand Name */
+  .brand-text {
+    font-weight: 700;
+    margin-left: 12px;
+    font-size: 1.25rem;
+  }
+  
+  /* Navigation Buttons */
+  .nav-button {
+    margin: 0 15px; /* Increased spacing */
+    padding:  15px  20px; /* Example: 5px top, 15px right, 20px bottom, 25px left *//* Increased padding */
+    color: white;
+    text-transform: none;
+    font-weight: 800;
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    min-height: unset;
+    line-height: 1.5;
+    background-color: transparent;
+
+  }
+  
+  .nav-button:hover {
+    background-color: white;
+    color: #b03052;
+    border: 2px solid #b03052;
+  }
+  
+  /* Search Box */
+  .search-box {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 6px 14px; /* Increased padding */
+    border-radius: 6px;
+    margin-left: 30px; /* Increased spacing */
+    margin-right: 20px; /* Increased spacing */
+  }
+  
+  .search-input {
+    color: white;
+    width: 180px; /* Increased width */
+    font-size: 1rem;
+    margin-right: 6px; /* Increased spacing */
+  }
+  
+  .search-icon {
+    color: white;
+  }
+  
+  /* SignUp/Login Button */
+  .login-button {
+    text-transform: none;
+    background-color: white;
+    color: #b03052;
+    margin-left: 12px; /* Increased spacing */
+    border-radius: 8px;
+    padding: 15px 60px; /* Increased padding */
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  
+  .login-button:hover {
+    background-color: #b03052;
+    color: white;
+    border: 2px solid white;
+  }
