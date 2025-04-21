@@ -7,7 +7,6 @@ import {
   Button,
   IconButton,
   InputBase,
-  Container,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -29,64 +28,98 @@ const Navbar = ({ sections }) => {
     { label: "Testimonials", ref: "testimonials" },
     { label: "Contact Us", ref: "footer" },
   ];
-  
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: "#f48fb1", color: "white", boxShadow: "none" ,padding: "2px",mb:"2px"}}>
-      <Container maxWidth="lg">
-        <Toolbar sx={{ justifyContent: "space-between", gap: 2 }}>
-          {/* Logo */}
-          <Box sx={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-            <IconButton edge="start" color="inherit">
-              <img src={logo} alt="logo" className="navbar-logo" />
-            </IconButton>
-            <Typography variant="h6" className="brand-text">
-              WhyC! Cosmetics
-            </Typography>
-          </Box>
+    <AppBar
+      position="sticky"
+      sx={{
+        backgroundColor: "#f48fb1",
+        color: "white",
+        boxShadow: "none",
+        padding: "4px 24px", // padding directly on the AppBar instead of Container
+        mb: "2px",
+      }}
+    >
+      <Toolbar
+        disableGutters
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: 2,
+          width: "100%",
+        }}
+      >
+        {/* Logo & Brand */}
+        <Box sx={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+          <IconButton edge="start" color="inherit">
+            <img src={logo} alt="logo" className="navbar-logo" />
+          </IconButton>
+          <Typography variant="h6" className="brand-text">
+            WhyC! Cosmetics
+          </Typography>
+        </Box>
 
-          {/* Nav Buttons - Hidden on mobile */}
-          <Box sx={{ display: { xs: "none", md: "flex" }, flexGrow: 1, justifyContent: "center" }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.label}
-                onClick={() => scrollToSection(item.ref)}
-                className="nav-button"
-              >
-                {item.label}
-              </Button>
-            ))}
-          </Box>
-
-          {/* Right side elements */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            {/* Search - Hidden on mobile */}
-            <Box className="search-box" sx={{ display: { xs: "none", md: "flex" } }}>
-              <InputBase placeholder="Search..." className="search-input" />
-              <IconButton className="search-icon">
-                <SearchIcon />
-              </IconButton>
-            </Box>
-
-            {/* Login Button */}
-            <Button 
-              onClick={() => navigate("/login")} 
-              className="login-button"
-              sx={{ display: { xs: "none", sm: "block" } }}
+        {/* Nav Buttons - Hidden on mobile */}
+        <Box
+          sx={{
+            display: { xs: "none", md: "flex" },
+            flexGrow: 1,
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          {navItems.map((item) => (
+            <Button
+              key={item.label}
+              onClick={() => scrollToSection(item.ref)}
+              className="nav-button"
             >
-              SignUp/Login
+              {item.label}
             </Button>
+          ))}
+        </Box>
 
-            {/* Mobile Menu Icon */}
-            <Box sx={{ display: { xs: "block", md: "none" } }}>
-              <IconButton><MenuIcon sx={{ color: "white" }} /></IconButton>
-            </Box>
+        {/* Right Side: Search + Login */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            flexShrink: 0,
+          }}
+        >
+          {/* Search - Hidden on mobile */}
+          <Box
+            className="search-box"
+            sx={{ display: { xs: "none", md: "flex" } }}
+          >
+            <InputBase placeholder="Search..." className="search-input" />
+            <IconButton className="search-icon">
+              <SearchIcon />
+            </IconButton>
           </Box>
-        </Toolbar>
-      </Container>
+
+          {/* SignUp/Login Button */}
+          <Button
+            onClick={() => navigate("/login")}
+            className="login-button"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            SignUp/Login
+          </Button>
+
+          {/* Mobile Menu Icon */}
+          <Box sx={{ display: { xs: "block", md: "none" } }}>
+            <IconButton>
+              <MenuIcon sx={{ color: "white" }} />
+            </IconButton>
+          </Box>
+        </Box>
+      </Toolbar>
+
       <style>
         {`
-          /* Logo */
           .navbar-logo {
             width: 40px;
             height: 40px;
@@ -94,7 +127,6 @@ const Navbar = ({ sections }) => {
             border: 2px solid white;
           }
 
-          /* Brand Name */
           .brand-text {
             font-weight: 700;
             margin-left: 12px;
@@ -102,7 +134,6 @@ const Navbar = ({ sections }) => {
             white-space: nowrap;
           }
 
-          /* Navigation Buttons */
           .nav-button {
             margin: 0 8px;
             padding: 8px 12px;
@@ -125,7 +156,6 @@ const Navbar = ({ sections }) => {
             border: 2px solid #b03052;
           }
 
-          /* Search Box */
           .search-box {
             display: flex;
             align-items: center;
@@ -151,7 +181,6 @@ const Navbar = ({ sections }) => {
             padding: 6px;
           }
 
-          /* SignUp/Login Button */
           .login-button {
             text-transform: none;
             background-color: white;
@@ -176,6 +205,7 @@ const Navbar = ({ sections }) => {
             .search-input {
               width: 180px;
             }
+
             .login-button {
               padding: 10px 30px;
               font-size: 1rem;

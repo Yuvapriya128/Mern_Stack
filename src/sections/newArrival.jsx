@@ -10,10 +10,13 @@ import {
   Grid,
   Chip,
   IconButton,
+  Rating,
   useTheme,
   useMediaQuery,
+  CardActions,
 } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 import eyeshadow from "../assets/Images/eyeshadow.jpg";
 import moisturizer from "../assets/Images/moisturizer.jpg";
@@ -28,53 +31,80 @@ import toner from "../assets/Images/toner.jpg";
 const products = [
   [
     {
+      id: 1,
       image: eyeshadow,
       title: "Eyeshadow Palette",
       description: "Vibrant colors for every look.",
+      price: 450,
+      rating: 4.6,
     },
     {
+      id: 2,
       image: moisturizer,
       title: "Hydrating Moisturizer",
       description: "Deep hydration for glowing skin.",
+      price: 450,
+      rating: 4.7,
     },
     {
+      id: 3,
       image: lipgloss,
       title: "Glossy Lip Gloss",
       description: "Shine and nourish your lips.",
+      price: 450,
+      rating: 4.5,
     },
   ],
   [
     {
+      id: 4,
       image: blush,
       title: "Cream Blush",
       description: "Adds a natural flush.",
+      price: 450,
+      rating: 4.6,
     },
     {
+      id: 5,
       image: foundation,
       title: "Long-Lasting Foundation",
       description: "Flawless coverage all day.",
+      price: 450,
+      rating: 4.8,
     },
     {
+      id: 6,
       image: mascara,
       title: "Volumizing Mascara",
       description: "Dramatic lashes with one swipe.",
+      price: 450,
+      rating: 4.7,
     },
   ],
   [
     {
+      id: 7,
       image: serum,
       title: "Vitamin C Serum",
       description: "Brightens and evens skin tone.",
+      price: 450,
+      rating: 4.9,
     },
     {
+      id: 8,
       image: cleanser,
       title: "Gentle Facial Cleanser",
       description: "Removes impurities without drying.",
+      price: 450,
+      rating: 4.6,
     },
     {
+      id: 9,
       image: toner,
       title: "Hydrating Toner",
       description: "Balances skin and prepares for serum.",
+      price: 450,
+      rating: 4.7,
     },
   ],
 ];
@@ -83,22 +113,23 @@ const NewArrivals = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [activeStep, setActiveStep] = useState(0);
+  const navigate = useNavigate();
   const maxSteps = products.length;
 
-  const handleNext = () =>
-    setActiveStep((prevStep) => (prevStep + 1) % maxSteps);
-  const handleBack = () =>
-    setActiveStep((prevStep) => (prevStep - 1 + maxSteps) % maxSteps);
+  const handleNext = () => setActiveStep((prevStep) => (prevStep + 1) % maxSteps);
+  const handleBack = () => setActiveStep((prevStep) => (prevStep - 1 + maxSteps) % maxSteps);
+
+  const handleBuyNow = (product) => {
+    navigate(`/product/${product.id}`, { state: { product } });
+  };
 
   return (
     <Box
       sx={{
-        py: 3,
+        py: 8,
         backgroundColor: "#fef2f4",
         borderRadius: 4,
-        overflow: "hidden",
         minHeight: "700px",
-        height: "auto",
       }}
     >
       <Typography
@@ -109,7 +140,7 @@ const NewArrivals = () => {
           fontWeight: "bold",
           color: "#b03052",
           position: "relative",
-          mb: 2,
+          mb: 8,
           "&:after": {
             content: '""',
             display: "block",
@@ -123,25 +154,9 @@ const NewArrivals = () => {
         New Arrivals
       </Typography>
 
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        sx={{
-          minHeight: "90vh", // ← Added minHeight
-          py: 2, // ← Added some vertical padding
-        }}
-      >
+      <Box display="flex" alignItems="center" justifyContent="center" sx={{ py: 2 }}>
         {!isMobile && (
-          <IconButton
-            onClick={handleBack}
-            sx={{
-              mx: 1,
-              backgroundColor: "#fff",
-              boxShadow: 2,
-              "&:hover": { backgroundColor: "#eee" },
-            }}
-          >
+          <IconButton onClick={handleBack} sx={{ mx: 1, backgroundColor: "#fff", boxShadow: 2 }}>
             <ArrowBackIos />
           </IconButton>
         )}
@@ -151,48 +166,40 @@ const NewArrivals = () => {
           onChangeIndex={setActiveStep}
           enableMouseEvents
           resistance
-          style={{ overflow: "hidden", width: "100%" ,  padding: "20px 0"}}
+          style={{ overflow: "hidden", width: "100%", padding: "20px 0" }}
         >
           {products.map((slide, index) => (
             <Box key={index} sx={{ px: 2 }}>
-              <Grid
-                container
-                spacing={isMobile ? 2 : 4}
-                justifyContent="center"
-              >
-                {" "}
-                {/* Increased spacing */}
-                {slide.map((product, idx) => (
-                  <Grid item xs={12} sm={4} md={4} key={idx}>
+              <Grid container spacing={isMobile ? 2 : 4} justifyContent="center">
+                {slide.map((product) => (
+                  <Grid item xs={12} sm={4} md={4} key={product.id}>
                     <Card
                       sx={{
                         maxWidth: 345,
                         margin: "auto",
                         boxShadow: 5,
                         borderRadius: 4,
-                        transition: "transform 0.3s ease-in-out",
                         position: "relative",
-                        height: "100%",
-                        border: "2px solid #b03052", // Added border here
+                        border: "2px solid #b03052",
+                        transition: "transform 0.3s ease-in-out",
                         "&:hover": {
-                          transform: "scale(1.03)",
+                          transform: "scale(1.05)",
                         },
                       }}
                     >
                       <Chip
                         label="NEW"
-                        color="error"
                         size="small"
                         sx={{
                           position: "absolute",
                           top: 10,
                           right: 10,
-                          zIndex: 1,
                           backgroundColor: "#b03052",
                           color: "white",
                           fontWeight: "bold",
                         }}
                       />
+
                       <Box
                         sx={{
                           display: "flex",
@@ -216,19 +223,33 @@ const NewArrivals = () => {
                           }}
                         />
                       </Box>
+
                       <CardContent>
-                        <Typography gutterBottom variant="h6" align="center">
+                        <Typography gutterBottom variant="h6" align="center" sx={{ fontWeight: "bold" }}>
                           {product.title}
                         </Typography>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          align="center"
-                        >
+
+                        <Box display="flex" justifyContent="center" mb={1}>
+                          <Rating
+                            value={product.rating}
+                            precision={0.5}
+                            readOnly
+                            size="small"
+                          />
+                          <Typography variant="body2" color="text.secondary" ml={1}>
+                            ({product.rating})
+                          </Typography>
+                        </Box>
+
+                        <Typography variant="body2" color="text.secondary" align="center">
                           {product.description}
                         </Typography>
                       </CardContent>
-                      <Box textAlign="center" pb={2}>
+
+                      <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                          ₹{product.price}
+                        </Typography>
                         <Button
                           variant="contained"
                           sx={{
@@ -241,10 +262,11 @@ const NewArrivals = () => {
                               color: "#b03052",
                             },
                           }}
+                          onClick={() => handleBuyNow(product)}
                         >
                           Buy Now
                         </Button>
-                      </Box>
+                      </CardActions>
                     </Card>
                   </Grid>
                 ))}
@@ -254,15 +276,7 @@ const NewArrivals = () => {
         </SwipeableViews>
 
         {!isMobile && (
-          <IconButton
-            onClick={handleNext}
-            sx={{
-              mx: 1,
-              backgroundColor: "#fff",
-              boxShadow: 2,
-              "&:hover": { backgroundColor: "#eee" },
-            }}
-          >
+          <IconButton onClick={handleNext} sx={{ mx: 1, backgroundColor: "#fff", boxShadow: 2 }}>
             <ArrowForwardIos />
           </IconButton>
         )}

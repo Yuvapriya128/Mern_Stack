@@ -9,34 +9,19 @@ import {
   Button,
   Grid,
   Container,
+  Chip,
+  Rating,
 } from "@mui/material";
-
-import lipstick from "../assets/Images/lipstick.jpg";
-import foundation from "../assets/Images/foundation.jpg";
-import perfume from "../assets/Images/perfume.jpg";
-
-const products = [
-  {
-    id: 1,
-    title: "Matte Lipstick",
-    description: "Smooth and long-lasting matte finish.",
-    image: lipstick,
-  },
-  {
-    id: 2,
-    title: "Liquid Foundation",
-    description: "Flawless coverage with a natural glow.",
-    image: foundation,
-  },
-  {
-    id: 3,
-    title: "Luxury Perfume",
-    description: "Enchanting fragrance that lasts all day.",
-    image: perfume,
-  },
-];
+import { useNavigate } from "react-router-dom";
+import { products } from "../data/products";
 
 const FeaturedProducts = () => {
+  const navigate = useNavigate();
+
+  const handleBuyNow = (product) => {
+    navigate(`/product/${product.id}`, { state: { product } });
+  };
+
   return (
     <Box
       sx={{
@@ -47,15 +32,8 @@ const FeaturedProducts = () => {
         py: 8,
       }}
     >
-      <Container
-        sx={{
-          textAlign: "center",
-          minHeight: "90vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
+      <Container sx={{ minHeight: "90vh" }}>
+        {/* Heading */}
         <Typography
           variant="h4"
           align="center"
@@ -64,7 +42,7 @@ const FeaturedProducts = () => {
             fontWeight: "bold",
             color: "#b03052",
             position: "relative",
-            mb: 4,
+            mb: 8,
             "&:after": {
               content: '""',
               display: "block",
@@ -78,99 +56,132 @@ const FeaturedProducts = () => {
           Featured Products
         </Typography>
 
-        <Box display="flex" justifyContent="center" sx={{ flexGrow: 1 }}>
-          <Grid container spacing={6} justifyContent="center">
-            {products.map((product) => (
-              <Grid
-                item
-                key={product.id}
-                xs={12}
-                sm={6}
-                md={4}
-                display="flex"
-                justifyContent="center"
+        {/* Product Cards - 3 per row */}
+        <Grid container spacing={4} justifyContent="center">
+          {products.slice(0, 3).map((product) => (
+            <Grid
+              item
+              key={product.id}
+              xs={12}
+              sm={6}
+              md={4}
+              display="flex"
+              justifyContent="center"
+              sx={{ mb: 4 }}
+            >
+              <Card
+                sx={{
+                  maxWidth: 345,
+                  width: "100%",
+                  margin: "auto",
+                  boxShadow: 5,
+                  borderRadius: 4,
+                  border: "2px solid #b03052",
+                  position: "relative",
+                  transition: "transform 0.3s ease-in-out",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                  },
+                }}
               >
-                <Card
+                {/* Chip Label for Featured */}
+                <Chip
+                  label="FEATURED"
+                  size="small"
                   sx={{
-                    maxWidth: 345,
-                    width: "100%",
-                    margin: "auto",
-                    boxShadow: 5,
-                    borderRadius: 4,
-                    border: "2px solid #b03052",
-                    transition: "transform 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "scale(1.05)",
-                    },
+                    position: "absolute",
+                    top: 10,
+                    right: 10,
+                    backgroundColor: "#b03052",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                />
+
+                {/* Product Image */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "hidden",
+                    height: 250,
+                    backgroundColor: "#f8f8f8",
+                    padding: 2,
                   }}
                 >
-                  <Box
+                  <CardMedia
+                    component="img"
+                    image={product.image}
+                    alt={product.title}
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      overflow: "hidden",
-                      height: 250,
-                      backgroundColor: "#f8f8f8",
-                      padding: 2,
+                      maxHeight: "100%",
+                      maxWidth: "100%",
+                      transition: "transform 0.5s ease",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                      },
                     }}
+                  />
+                </Box>
+
+                {/* Product Details */}
+                <CardContent>
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    component="div"
+                    align="center"
+                    sx={{ fontWeight: "bold" }}
                   >
-                    <CardMedia
-                      component="img"
-                      image={product.image}
-                      alt={product.title}
-                      sx={{
-                        maxHeight: "100%",
-                        maxWidth: "100%",
-                        transition: "transform 0.5s ease",
-                        "&:hover": {
-                          transform: "scale(1.1)",
-                        },
-                      }}
+                    {product.title}
+                  </Typography>
+                  <Box display="flex" justifyContent="center" mb={1}>
+                    <Rating
+                      value={product.rating || 4.5} // Default rating if not specified
+                      precision={0.5}
+                      readOnly
+                      size="small"
                     />
+                    <Typography variant="body2" color="text.secondary" ml={1}>
+                      ({product.rating || 4.5})
+                    </Typography>
                   </Box>
-                  <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                      align="center"
-                      sx={{ fontWeight: "bold" }}
-                    >
-                      {product.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      align="center"
-                    >
-                      {product.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions sx={{ justifyContent: "center", pb: 2 }}>
-                    <Button
-                      variant="contained"
-                      sx={{
-                        backgroundColor: "#b03052",
-                        color: "white",
-                        fontWeight: "bold",
-                        border: "2px solid #b03052",
-                        px: 4,
-                        "&:hover": {
-                          backgroundColor: "white",
-                          color: "#b03052",
-                          borderColor: "#b03052",
-                        },
-                      }}
-                    >
-                      Buy Now
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    align="center"
+                  >
+                    {product.description}
+                  </Typography>
+                </CardContent>
+
+                {/* Price and Buy Now Button */}
+                <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    ₹{product.price}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#b03052",
+                      color: "white",
+                      fontWeight: "bold",
+                      border: "2px solid #b03052",
+                      "&:hover": {
+                        backgroundColor: "white",
+                        color: "#b03052",
+                      },
+                    }}
+                    onClick={() => handleBuyNow(product)}
+                  >
+                    Buy Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );

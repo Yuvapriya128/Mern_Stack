@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -10,70 +11,79 @@ import {
   Grid,
   Container,
   Chip,
-  Rating
-} from '@mui/material';
+  Rating,
+} from "@mui/material";
 
-import mascara from '../assets/Images/mascara.jpg';
-import serum from '../assets/Images/serum.jpg';
-import sunscreen from '../assets/Images/sunscreen.jpg';
+import mascara from "../assets/Images/mascara.jpg";
+import serum from "../assets/Images/serum.jpg";
+import sunscreen from "../assets/Images/sunscreen.jpg";
 
 const bestSellers = [
   {
     id: 1,
-    title: 'Volumizing Mascara',
-    description: 'Lengthen and volumize your lashes instantly.',
+    title: "Volumizing Mascara",
+    description: "Lengthen and volumize your lashes instantly.",
     image: mascara,
     rating: 4.8,
-    isNew: true
+    price: 450,
+    isNew: true,
   },
   {
     id: 2,
-    title: 'Anti-Aging Serum',
-    description: 'Reduce wrinkles and rejuvenate your skin.',
+    title: "Anti-Aging Serum",
+    description: "Reduce wrinkles and rejuvenate your skin.",
     image: serum,
     rating: 4.9,
-    isPopular: true
+    price: 450,
+    isPopular: true,
   },
   {
     id: 3,
-    title: 'SPF 50 Sunscreen',
-    description: 'Lightweight protection against UV rays.',
+    title: "SPF 50 Sunscreen",
+    description: "Lightweight protection against UV rays.",
     image: sunscreen,
     rating: 4.7,
-    isBestSeller: true
+    price: 450,
+    isBestSeller: true,
   },
 ];
 
 const BestSellers = () => {
+  const navigate = useNavigate();
+
+  const handleBuyNow = (product) => {
+    navigate(`/product/${product.id}`, { state: { product } });
+  };
+
   return (
     <Box
       sx={{
-        backgroundImage: 'linear-gradient(to bottom right, #fff4f8, #ffe1e9)',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        width: '100%',
+        backgroundImage: "linear-gradient(to bottom right, #fff4f8, #ffe1e9)",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        width: "100%",
         py: 8,
       }}
     >
-      <Container sx={{ minHeight: '90vh' }}>
+      <Container sx={{ minHeight: "90vh" }}>
         {/* Heading */}
         <Typography
           variant="h4"
           align="center"
           gutterBottom
           sx={{
-            fontWeight: 'bold',
-            color: '#b03052',
-            position: 'relative',
+            fontWeight: "bold",
+            color: "#b03052",
+            position: "relative",
             mb: 8,
-            '&:after': {
+            "&:after": {
               content: '""',
-              display: 'block',
+              display: "block",
               width: 80,
               height: 4,
-              background: '#b03052',
-              margin: '16px auto 0',
-            }
+              background: "#b03052",
+              margin: "16px auto 0",
+            },
           }}
         >
           Best Sellers
@@ -95,15 +105,15 @@ const BestSellers = () => {
               <Card
                 sx={{
                   maxWidth: 345,
-                  width: '100%',
-                  margin: 'auto',
+                  width: "100%",
+                  margin: "auto",
                   boxShadow: 5,
                   borderRadius: 4,
-                  border: '2px solid #b03052',
-                  position: 'relative',
-                  transition: 'transform 0.3s ease-in-out',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
+                  border: "2px solid #b03052",
+                  position: "relative",
+                  transition: "transform 0.3s ease-in-out",
+                  "&:hover": {
+                    transform: "scale(1.05)",
                   },
                 }}
               >
@@ -114,12 +124,12 @@ const BestSellers = () => {
                     color="primary"
                     size="small"
                     sx={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 10,
                       right: 10,
-                      backgroundColor: '#b03052',
-                      color: 'white',
-                      fontWeight: 'bold',
+                      backgroundColor: "#b03052",
+                      color: "white",
+                      fontWeight: "bold",
                     }}
                   />
                 )}
@@ -128,12 +138,12 @@ const BestSellers = () => {
                     label="HOT"
                     size="small"
                     sx={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 10,
                       right: 10,
-                      backgroundColor: '#d76c82',
-                      color: 'white',
-                      fontWeight: 'bold',
+                      backgroundColor: "#d76c82",
+                      color: "white",
+                      fontWeight: "bold",
                     }}
                   />
                 )}
@@ -142,12 +152,12 @@ const BestSellers = () => {
                     label="BESTSELLER"
                     size="small"
                     sx={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 10,
                       right: 10,
-                      backgroundColor: '#3d0301',
-                      color: 'white',
-                      fontWeight: 'bold',
+                      backgroundColor: "#3d0301",
+                      color: "white",
+                      fontWeight: "bold",
                     }}
                   />
                 )}
@@ -155,12 +165,12 @@ const BestSellers = () => {
                 {/* Image */}
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden',
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "hidden",
                     height: 250,
-                    backgroundColor: '#f8f8f8',
+                    backgroundColor: "#f8f8f8",
                     padding: 2,
                   }}
                 >
@@ -169,11 +179,11 @@ const BestSellers = () => {
                     image={product.image}
                     alt={product.title}
                     sx={{
-                      maxHeight: '100%',
-                      maxWidth: '100%',
-                      transition: 'transform 0.5s ease',
-                      '&:hover': {
-                        transform: 'scale(1.1)',
+                      maxHeight: "100%",
+                      maxWidth: "100%",
+                      transition: "transform 0.5s ease",
+                      "&:hover": {
+                        transform: "scale(1.1)",
                       },
                     }}
                   />
@@ -186,6 +196,7 @@ const BestSellers = () => {
                     variant="h6"
                     component="div"
                     align="center"
+                    sx={{ fontWeight: "bold" }}
                   >
                     {product.title}
                   </Typography>
@@ -210,20 +221,23 @@ const BestSellers = () => {
                 </CardContent>
 
                 {/* Buy Now Button */}
-                <CardActions sx={{ justifyContent: 'center' }}>
+                <CardActions sx={{ justifyContent: "space-between", p: 2 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    ₹{product.price}
+                  </Typography>
                   <Button
                     variant="contained"
                     sx={{
-                      backgroundColor: '#b03052',
-                      color: 'white',
-                      fontWeight: 'bold',
-                      border: '2px solid #b03052',
-                      '&:hover': {
-                        backgroundColor: 'white',
-                        color: 'black',
-                        borderColor: '#b03052',
+                      backgroundColor: "#b03052",
+                      color: "white",
+                      fontWeight: "bold",
+                      border: "2px solid #b03052",
+                      "&:hover": {
+                        backgroundColor: "white",
+                        color: "#b03052",
                       },
                     }}
+                    onClick={() => handleBuyNow(product)}
                   >
                     Buy Now
                   </Button>
